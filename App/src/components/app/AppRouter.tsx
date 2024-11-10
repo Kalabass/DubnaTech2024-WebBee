@@ -1,10 +1,12 @@
+import { ROLES } from '@/const/roles';
+import { ROUTES } from '@/const/routes';
+import { useKeycloak } from '@/hooks/keyCloackProvider';
+import DefaultLayout from '@/layouts/DefaultLayout';
+import AdminPage from '@/pages/AdminPage';
+import ErrorPage from '@/pages/ErrorPage';
+import MainPage from '@/pages/MainPage';
+import ProfilePage from '@/pages/ProfilePage';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
-import { ROUTES } from '../const/routes';
-import { useKeycloak } from '../hooks/keyCloackProvider';
-import AdminPage from '../pages/AdminPage';
-import MainPage from '../pages/MainPage';
-import ProfilePage from '../pages/ProfilePage';
 
 const ProtectedRoute = ({
   element,
@@ -31,6 +33,9 @@ const ProtectedRoute = ({
 
 export const AppRouter = createBrowserRouter([
   {
+    path: ROUTES.MAIN,
+    element: <DefaultLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: ROUTES.MAIN,
@@ -43,7 +48,10 @@ export const AppRouter = createBrowserRouter([
       {
         path: ROUTES.ADMIN,
         element: (
-          <ProtectedRoute element={<AdminPage />} requiredRole='secret-admin' />
+          <ProtectedRoute
+            element={<AdminPage />}
+            requiredRole={ROLES.secretAdmin}
+          />
         ),
       },
     ],

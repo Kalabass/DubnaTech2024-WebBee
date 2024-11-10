@@ -1,14 +1,17 @@
-import '@/assets/cssReset.css';
+import '@/assets/style/cssReset.css';
+import { muiTheme } from '@/const/muiTheme';
+import { KeycloakProvider } from '@/hooks/keyCloackProvider';
+import { ThemeProvider } from '@emotion/react';
 import { FC } from 'react';
 import { RouterProvider } from 'react-router-dom';
-
-import { KeycloakProvider } from '../hooks/keyCloackProvider';
 import { AppRouter } from './AppRouter';
 
 const App: FC = () => {
   return (
     <KeycloakProvider>
-      <RouterProvider router={AppRouter} />
+      <ThemeProvider theme={muiTheme}>
+        <RouterProvider router={AppRouter} />
+      </ThemeProvider>
     </KeycloakProvider>
   );
 };
