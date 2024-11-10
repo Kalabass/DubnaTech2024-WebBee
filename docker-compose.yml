@@ -8,6 +8,8 @@ services:
     command: start-dev
     ports:
       - '8080:8080'
+    volumes:
+      - keycloak_data:/opt/keycloak/data
 
   react-app:
     build:
@@ -19,3 +21,6 @@ services:
       - REACT_APP_KEYCLOAK_URL=http://localhost:8080
     depends_on:
       - keycloak
+
+volumes:
+  keycloak_data:
